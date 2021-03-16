@@ -32,20 +32,6 @@
             height: 100%;
             position: relative;
         }
-        .hero-text {
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-        }
-        .center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-             
-        }
     </style>
 </head>
 
@@ -72,19 +58,11 @@
        <div class="hero-image">
           <div class="hero-text">
             <h1 style="font-size:50px;font-family:B612 Bold">Stock Market Prediction</h1>
-            <a href="#prediction" class="btn-get-started scrollto">Get Started</a>
-           </div>
-        </div>
-</section>
-  <!-- End Hero -->
-
-  <main id="main">
-
-       <!-- ======= About Section ======= -->
+                   <!-- ======= About Section ======= -->
     <section id="prediction" class="about">
         <div class="container">
         <div class="center">
-        <form action="http://somesite.com/action" method="post">
+        <form action="" method="post">
         <label for="action" style="font-size: 25px;font-family: Muli Black">Select the Company</label>
             <br>
              <select name="company" id="company">
@@ -139,14 +117,12 @@
                  <option value="46">Titan Company</option>
                  <option value="47">UltraTech Cement</option>
                  <option value="48">United Phosphorus Limited</option>
-                 <option value="49">Wipro</option>
-                 
-                 
+                 <option value="49">Wipro</option> 
             </select>
             <br><br>
             
         
-        <button class="submit" onclick="onClickedEstimatePrice()" type="button">Submit </button>
+        <a class="btn-get-started submit" onclick="onClickedEstimatePrice()" type="button">Submit </a>
         </form>
         </div>
         <div class="row content">
@@ -154,19 +130,25 @@
             <p style="text-align: center">
               Prediction Up or Down
             </p>
-            
           </div>
-	
-	<div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
-          </div>
+	                <div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
+        </div>
 
       </div>
     </section><!-- End Prediction Section -->
+            </div>
+        </div>
+</section>
+  <!-- End Hero -->
+
+  <main id="main">
+
+
       <!-- ======= Team Section ======= -->
     <section id="team" class="team">
       <div class="container">
 
-        <div class="section-title">
+        <div class="team-title">
           <h2>Created By</h2>
         </div>
 
