@@ -6,7 +6,7 @@ Bajaj Auto,BAJAJ-AUTO.NS,"Bajaj,bajaj auto limited,bajaj group"
 Bajaj Finance,BAJFINANCE.NS,"Bajaj,bajaj group,bajaj finserv,bajfinance"
 Bajaj Finserv,BAJAJFINSV.NS,"Bajaj,bajaj group,bajaj finserv,bajfinance,bajaj financial services"
 Bharti Airtel,BHARTIARTL.NS,"Airtel,Vodafone,airtel india"
-Bharat Petroleum,BPCL.NS,"Bharat Petroleum limited,bpcl"
+Bharat Petroleum,BPCL.NS,"bharat petroleum,bpcl, BPCL Trust,"
 Britannia Industries,BRITANNIA.NS,Britannia
 Cipla,CIPLA.NS,cipla
 Coal India,COALINDIA.NS,"CIL,coalindia"
@@ -19,18 +19,18 @@ HCL Technologies,HCLTECH.NS,"hcl,hcl tech,hcl group"
 HDFC,HDFC.NS,hdfc
 HDFC Bank,HDFCBANK.NS,HDFC
 HDFC Life,HDFCLIFE.NS,"HDFC,hdfc lic"
-Hero MotoCorp,HEROMOTOCO.NS,"Hero,hero motorcorp limited"
+Hero MotoCorp,HEROMOTOCO.NS,"hero motor,Hero motors,hero motorcorp limited, hero motorcorp"
 Hindalco Industries,HINDALCO.NS,Hindalco
 Hindustan Unilever,HINDUNILVR.NS,"hindunilvr,hul"
 ICICI Bank,ICICIBANK.NS,ICICI
 IndusInd Bank,INDUSINDBK.NS,IndusInd
 Infosys,INFY.NS,infosys limited
-Indian Oil Corporation,IOC.NS,"IOC,IOCL"
+Indian Oil Corporation,IOC.NS,"Indian Oil,IOCL"
 ITC Limited,ITC.NS,ITC
 JSW Steel,JSWSTEEL.NS,JSW
 Kotak Mahindra Bank,KOTAKBANK.NS,"Kotak,Kotak mahindra,kotak bank,uday kotak"
 Larsen & Toubro,LT.NS,"L&T,larsen,toubro"
-Mahindra & Mahindra,M&M.NS,"Mahindra and Mahindra,Mahindra,Mahindra group"
+Mahindra & Mahindra,M&M.NS,"Anand Mahindra,Mahindra, Mahindra group, Mahindra and Mahindra"
 Maruti Suzuki,MARUTI.NS,"Maruti,Suzuki,Maruti Suzuki India limited"
 Nestlé India,NESTLEIND.NS,"Nestle,Nestle India"
 NTPC,NTPC.NS,Nationa Thermal Power Corporation
@@ -38,8 +38,8 @@ Oil and Natural Gas Corporation,ONGC.NS,"ONGC,ongc india,ongc"
 Power Grid Corporation of India,POWERGRID.NS,"pgci,powergrid,powergrid india"
 Reliance Industries,RELIANCE.NS,"reliance,ambani,jio,ril"
 State Bank of India,SBIN.NS,"sbi,sbi bank"
-SBI Life Insurance Company,SBILIFE.NS,"sbi,sbi lic"
-Shree Cements,SHREECEM.NS,"ShreeCements,Shree Cement,Shree Cements Limited"
+SBI Life Insurance Company,SBILIFE.NS,"sbi lic,sbi"
+Shree Cements,SHREECEM.NS,"shree cement,ShreeCements,shree cements ltd,shreecem,"
 Sun Pharmaceutical,SUNPHARMA.NS,sun pharma
 Tata Motors,TATAMOTORS.NS,"tata,tata group,TELCO,ratan tata,tatamotors"
 Tata Steel,TATASTEEL.NS,"tata,tata group,ratan tata"
