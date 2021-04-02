@@ -149,7 +149,7 @@ def Predict(name,symbol):
 
     # setting the target variable as the shifted close_price
     y = data['close_price_shifted']
-
+    #print(y)
     # setting the features dataset for prediction  
     cols = ['close_price', 'compound', 'compound_shifted', 'volume', 'open_price', 'high', 'low']
     x = data[cols]
@@ -178,8 +178,15 @@ def Predict(name,symbol):
     prediction = loaded_model.predict(x)
 
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
-    #print(prediction)
+    print(prediction)
 
+    '''plt.plot([row[0] for row in y], label="Training Close Price")
+    plt.plot(prediction, label="Predicted Close Price")
+    plt.plot([row[0] for row in y], label="Predicted Close Price")
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=2)
+    plt.show()'''    
+
+    
     print("Previous Close Price :",previous_cp)
     print('Prediction for today:')
     pred_data=prediction[-1]
