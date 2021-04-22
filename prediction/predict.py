@@ -7,6 +7,8 @@ import numpy as np
 from tensorflow import keras
 
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import datetime
 import seaborn as sns
 
 from keras.models import Sequential
@@ -25,6 +27,7 @@ def Predict(name,symbol):
     # reading the datasets
     stock_price = pd.read_csv(f"{symbol}.csv")
     stock_headlines = pd.read_csv(f"{name}.csv")
+    date = stock_price['Date'].values.tolist()
 
     # check the null values in datasets
     stock_price.isna().any(), stock_headlines.isna().any()
@@ -169,28 +172,39 @@ def Predict(name,symbol):
     x = x.reshape (x.shape + (1,))
 
     model = keras.models.load_model(f'C:\\Users\\Urvik\\Desktop\\Final\\prediction\\{name}')
-
-
     loaded_model = keras.models.load_model(f'{name}')
     print('Model loaded')
 
-
     prediction = loaded_model.predict(x)
-
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
-    print(prediction)
+    #print(prediction)
+    y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
 
-    '''plt.plot([row[0] for row in y], label="Training Close Price")
+    date1 = date[-36:]
+    x = []
+    for i in range(len(date1)):
+        x.append(i)
+    font1 = {'family':'serif','size':30}
+    font2 = {'family':'serif','size':15}
+    plt.figure(figsize=(16,10))
+    plt.grid()
     plt.plot(prediction, label="Predicted Close Price")
-    plt.plot([row[0] for row in y], label="Predicted Close Price")
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=2)
-    plt.show()'''    
+    plt.plot([row[0] for row in y], label="Actual Close Price")
+    plt.xlabel('Date', fontdict = font2)
+    plt.ylabel('Stock Price',fontdict = font2)
+    plt.title(name, fontdict = font1)
+    plt.xticks(x, date1)
+    plt.xticks(rotation=90)
+    plt.plot(prediction,marker='.', markerfacecolor='blue', markersize=10)
+    plt.plot(y,marker='.', markerfacecolor='yellow', markersize=10)
+    plt.legend(loc=4, bbox_to_anchor=(1,0), fancybox=True, shadow=True, ncol=2)
+    plt.show()
+    #plt.savefig(f"{name}.png")
 
-    
     print("Previous Close Price :",previous_cp)
     print('Prediction for today:')
     pred_data=prediction[-1]
-    pred=str((pred_data))
+    pred=str(pred_data)
     print("Estimated today's price could be ",pred)
     Percent_change = ((pred_data - previous_cp)/ (pred_data))*100
     if (Percent_change >= 0):
@@ -201,4 +215,4 @@ def Predict(name,symbol):
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
 
 
-#Predict("Wipro","WIPRO.NS")
+Predict("Axis Bank","AXISBANK.NS")

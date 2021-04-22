@@ -15,13 +15,14 @@ def Twitter(name,company,i):
     time= datetime.datetime.now()
     time1 = time - timedelta (hours=5.5)
 
+    time2 = time1 - timedelta (days =60)
+
 
     
-    start_time = datetime.datetime(2021,1,1,00,00,00)
-    date_time1 = start_time.strftime("%Y-%m-%d %H:%M:%S")
+    #start_time = datetime.datetime(2021,1,1,00,00,00)
+    date_time = time2.strftime("%Y-%m-%d %H:%M:%S")
 
-
-    c.Since = date_time1
+    c.Since = date_time
     #c.Until = date_time
 
     print("Fetching the tweets for",company)

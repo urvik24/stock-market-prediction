@@ -7,6 +7,8 @@ import numpy as np
 from tensorflow import keras
 
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import datetime
 import seaborn as sns
 
 from keras.models import Sequential
@@ -25,6 +27,7 @@ def Predict(name,symbol):
     # reading the datasets
     stock_price = pd.read_csv(f"{symbol}.csv")
     stock_headlines = pd.read_csv(f"{name}.csv")
+    date = stock_price['Date'].values.tolist()
 
     # check the null values in datasets
     stock_price.isna().any(), stock_headlines.isna().any()
@@ -149,7 +152,7 @@ def Predict(name,symbol):
 
     # setting the target variable as the shifted close_price
     y = data['close_price_shifted']
-
+    #print(y)
     # setting the features dataset for prediction  
     cols = ['close_price', 'compound', 'compound_shifted', 'volume', 'open_price', 'high', 'low']
     x = data[cols]
@@ -165,42 +168,51 @@ def Predict(name,symbol):
     y = np.array (y).reshape ((len( y), 1))
     y = scaler_y.fit_transform (y)
 
-    y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
-
     # reshaping the feature dataset for feeding into the model
     x = x.reshape (x.shape + (1,))
 
     model = keras.models.load_model(f'C:\\Users\\Urvik\\Desktop\\Final\\prediction\\{name}')
-
-
     loaded_model = keras.models.load_model(f'{name}')
     print('Model loaded')
 
-
     prediction = loaded_model.predict(x)
-
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
     #print(prediction)
-    plt.figure(figsize=(16,10))
 
-    # plt.plot([row[0] for row in y], label="Training Close Price")
-    #plt.plot(prediction, label="Predicted Close Price")
-    #plt.plot([row[0] for row in y], label="Testing Close Price")
-    #plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=2)
-    #plt.show()
+    y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
+ 
+    x = []
+    for i in range(len(date)):
+        x.append(i)
+    font1 = {'family':'serif','size':30}
+    font2 = {'family':'serif','size':15}
+    plt.figure(figsize=(16,10))
+    plt.grid()
+    plt.plot(prediction, label="Predicted Close Price")
+    plt.plot([row[0] for row in y], label="Actual Close Price")
+    plt.xlabel('Date', fontdict = font2)
+    plt.ylabel('Stock Price',fontdict = font2)
+    plt.title(name, fontdict = font1)
+    plt.xticks(x, date)
+    plt.xticks(rotation=90)
+    plt.plot(prediction,marker='.', markerfacecolor='blue', markersize=10)
+    plt.plot(y,marker='.', markerfacecolor='yellow', markersize=10)
+    plt.legend(loc=4, bbox_to_anchor=(1,0), fancybox=True, shadow=True, ncol=2)
+    plt.show()
+    plt.savefig(f"{name}.png", bbox_inches='tight')
 
     print("Previous Close Price :",previous_cp)
-    #print('Prediction for today:')
+    print('Prediction for today:')
     pred_data=prediction[-1]
     pred=str((pred_data))
-    #print("Estimated today's price could be ",pred)
+    print("Estimated today's price could be ",pred)
     Percent_change = ((pred_data - previous_cp)/ (pred_data))*100
-    #if (Percent_change >= 0):
-    #    print ("Today the price could rise.")
-    #else:
-    #    print("Today the price could fall.")
+    if (Percent_change >= 0):
+        print ("Today the price could rise.")
+    else:
+        print("Today the price could fall.")
     predicted_change = Percent_change[0]
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
-    return(predicted_change)
 
-#Predict("Infosys","INFY.NS")
+
+#Predict("Cipla","CIPLA.NS")
