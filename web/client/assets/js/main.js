@@ -23,7 +23,7 @@ function onClickedEstimatePrice() {
         finalValue.classList.add('red');
       }
       est.style.display = 'flex'
-      finalValue.text = data.estimated_price + '%';
+      finalValue.innerHTML = data.estimated_price + '%';
       console.log(status);
   });
 }
