@@ -6,15 +6,24 @@
 */
 
 function onClickedEstimatePrice() {
+  var button = document.getElementsByClassName('submit')[0];
+  button.text = 'Please wait...';
   var location = document.getElementById("company").value;
   var est = document.getElementById("uiEstimatedPrice");
+  var finalValue = document.getElementsByClassName('final-value')[0];
   var url = "http://127.0.0.1:5000/aa";
 
   $.post(url, {
       name: location
   },function(data, status) {
-      console.log(data.estimated_price);
-      est.innerHTML = "<h2>" + data.estimated_price+ "%</h2>";
+      button.text = 'Results fetched';
+      if (data.estimated_price > 0) {
+        finalValue.classList.add('green');
+      } else {
+        finalValue.classList.add('red');
+      }
+      est.style.display = 'flex'
+      finalValue.text = data.estimated_price + '%';
       console.log(status);
   });
 }

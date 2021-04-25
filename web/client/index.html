@@ -27,10 +27,52 @@
   
     <style>
         .hero-image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .background-image {
+            opacity: 0.5;
             background: url("assets/img/sm.png") no-repeat center; 
             background-size: cover;
             height: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            left: 0;
+            z-index: 0;
+        }
+        .hero-text {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
             position: relative;
+        }
+
+        #uiEstimatedPrice {
+            width: 100%;
+            justify-content: center;
+            margin-top: 50px;
+            font-size: 20px;
+            display: none;
+
+        }
+
+        .final-value.green {
+            color: green;
+        }
+
+        .final-value.red {
+            color: red;
+        }
+
+        .final-value {
+            margin-left: 14px;
         }
     </style>
 </head>
@@ -56,10 +98,10 @@
   <!-- ======= Hero Section ======= -->
 <section id="hero">
        <div class="hero-image">
+           <div class="background-image"></div>
           <div class="hero-text">
             <h1 style="font-size:50px;font-family:B612 Bold">Stock Market Prediction</h1>
-                   <!-- ======= About Section ======= -->
-    <section id="prediction" class="about">
+            <section id="prediction" class="about">
         <div class="container">
         <div class="center">
         <form action="" method="post">
@@ -122,11 +164,14 @@
             <br><br>
             
         
-        <a class="btn-get-started submit" onclick="onClickedEstimatePrice()" type="button">Submit </a>
+            <a class="btn-get-started submit" onclick="onClickedEstimatePrice()" type="button">Submit </a>
         </form>
         </div>
         <div class="row content">
-	                <div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
+	                <div id="uiEstimatedPrice" class="result green">
+                        Predicated change:
+                        <span class="final-value">34.00</span>
+                    </div>
         </div>
 
       </div>
