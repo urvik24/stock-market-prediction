@@ -179,7 +179,7 @@ def Predict(name,symbol):
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
     #print(prediction)
 
-    '''y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
+    y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
  
     x = []
     for i in range(len(date)):
@@ -199,7 +199,7 @@ def Predict(name,symbol):
     plt.plot(y,marker='.', markerfacecolor='yellow', markersize=10)
     plt.legend(loc=4, bbox_to_anchor=(1,0), fancybox=True, shadow=True, ncol=2)
     plt.show()
-    plt.savefig(f"{name}.png", bbox_inches='tight')'''
+    plt.savefig(f"{name}.png", bbox_inches='tight')
 
     print("Previous Close Price :",previous_cp)
     print('Prediction for today:')
