@@ -215,4 +215,4 @@ def Predict(name,symbol):
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
 
 
-Predict("Axis Bank","AXISBANK.NS")
+#Predict("Axis Bank","AXISBANK.NS")
