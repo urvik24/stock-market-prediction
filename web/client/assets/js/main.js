@@ -7,12 +7,17 @@
 
 function onClickedEstimatePrice() {
   var button = document.getElementsByClassName('submit')[0];
-  button.text = 'Please wait...';
+  
   var location = document.getElementById("company").value;
   var est = document.getElementById("uiEstimatedPrice");
   var finalValue = document.getElementsByClassName('final-value')[0];
   var url = "http://127.0.0.1:5000/aa";
-
+  console.log(location);
+  if(location == ''){
+    alert("Select a company name");
+  }
+  else{
+    button.text = 'Please wait...';
   $.post(url, {
       name: location
   },function(data, status) {
@@ -25,7 +30,7 @@ function onClickedEstimatePrice() {
       est.style.display = 'flex'
       finalValue.innerHTML = data.estimated_price + '%';
       console.log(status);
-  });
+  });}
 }
 
 
