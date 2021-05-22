@@ -190,7 +190,7 @@ def Train(name,symbol):
     model.save(f'{name}')
     print("Model saved")
 
-#Train("Tata Steel","TATASTEEL.NS")
+#Train("Infosys","INFY.NS")
 
     
 
