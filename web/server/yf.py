@@ -11,6 +11,6 @@ def Stocks(company):
     data = yf.download(company, date2 , date1)
     #print(data)
     data.to_csv(f"{company}.csv")
-    print("Fetched Stock Details for "+company1+" for the past 365 days")
+    print("Fetched Stock Details for "+company1+" for the past 60 days")
 
 #Stocks("RELIANCE.NS")

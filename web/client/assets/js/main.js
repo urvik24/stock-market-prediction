@@ -14,7 +14,7 @@ function onClickedEstimatePrice() {
   var url = "http://127.0.0.1:5000/aa";
   console.log(location);
   if(location == ''){
-    alert("Select a company name");
+    alert("Select A Company Name!!!!");
   }
   else{
     button.text = 'Please wait...';
