@@ -171,35 +171,33 @@ def Predict(name,symbol):
     # reshaping the feature dataset for feeding into the model
     x = x.reshape (x.shape + (1,))
 
-    model = keras.models.load_model(f'C:\\Users\\Urvik\\Desktop\\Final\\prediction\\{name}')
-    loaded_model = keras.models.load_model(f'{name}')
+    loaded_model = keras.models.load_model(f'C:\\Users\\Urvik\\Desktop\\Final\\Models\\{name}')
     print('Model loaded')
 
     prediction = loaded_model.predict(x)
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
     #print(prediction)
     y = scaler_y.inverse_transform(np.array(y).reshape((len(y), 1)))
-
-    date1 = ["7 April","8 April","9 April","10 April","11 April","12 April","13 April"]
-    no = ["10","12","7","12","9","13","6"]
  
+    x = []
+    for i in range(len(date)):
+        x.append(i)
     font1 = {'family':'serif','size':30}
     font2 = {'family':'serif','size':15}
     plt.figure(figsize=(16,10))
     plt.grid()
-    #plt.plot(prediction, label="Predicted Close Price")
-    plt.plot([row[0] for row in no], label="Actual Close Price")
+    plt.plot(prediction, label="Predicted Close Price")
+    plt.plot([row[0] for row in y], label="Actual Close Price")
     plt.xlabel('Date', fontdict = font2)
-    plt.ylabel('No of Patients',fontdict = font2)
-    plt.title("No of Patients", fontdict = font1)
-    #plt.xticks(x, date1)
-    #plt.xticks(rotation=90)
-    
-    #plt.plot(prediction,marker='.', markerfacecolor='blue', markersize=10)
-    plt.plot(no,marker='.', markerfacecolor='yellow', markersize=10)
+    plt.ylabel('Stock Price',fontdict = font2)
+    plt.title(name, fontdict = font1)
+    plt.xticks(x, date)
+    plt.xticks(rotation=90)
+    plt.plot(prediction,marker='.', markerfacecolor='blue', markersize=10)
+    plt.plot(y,marker='.', markerfacecolor='yellow', markersize=10)
     plt.legend(loc=4, bbox_to_anchor=(1,0), fancybox=True, shadow=True, ncol=2)
     plt.show()
-    #plt.savefig('graph.png')
+    #plt.savefig(f"{name}.png", bbox_inches='tight')
 
     print("Previous Close Price :",previous_cp)
     print('Prediction for today:')
@@ -214,4 +212,4 @@ def Predict(name,symbol):
     predicted_change = Percent_change[0]
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
 
-#Predict("Infosys","INFY.NS")
+#Predict("Cipla","CIPLA.NS")
