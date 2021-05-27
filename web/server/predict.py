@@ -23,23 +23,26 @@ from nltk.sentiment.util import *
 from sklearn import preprocessing, metrics
 from sklearn.preprocessing import MinMaxScaler
 
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import unicodedata
+
 def Predict(name,symbol):    
     # reading the datasets
     stock_price = pd.read_csv(f"{symbol}.csv")
-    stock_headlines = pd.read_csv(f"{name}.csv")
+    stock_tweets = pd.read_csv(f"{name}.csv")
     date = stock_price['Date'].values.tolist()
 
     # check the null values in datasets
-    stock_price.isna().any(), stock_headlines.isna().any()
+    stock_price.isna().any(), stock_tweets.isna().any()
     # removing duplicates
     stock_price = stock_price.drop_duplicates()
-    stock_headlines = stock_headlines.drop_duplicates()
+    stock_tweets = stock_tweets.drop_duplicates()
     # coverting the datatype of column 'Date' from object to 'datetime'
     stock_price['Date'] = pd.to_datetime(stock_price['Date']).dt.normalize()
-    stock_headlines['date'] = pd.to_datetime(stock_headlines['date']).dt.normalize()
+    stock_tweets['date'] = pd.to_datetime(stock_tweets['date']).dt.normalize()
     # Filtering
     stock_price = stock_price.filter(['Date', 'Close', 'Open', 'High', 'Low', 'Volume'])
-    stock_headlines = stock_headlines.filter(['date', 'tweet'])
+    stock_tweets = stock_tweets.filter(['date', 'tweet'])
     # 'Date' as the index column
     stock_price.set_index('Date', inplace= True)
     # sorting the data according to the index i.e 'Date'
@@ -48,17 +51,17 @@ def Predict(name,symbol):
     cp = stock_price['Close'].tolist()
     previous_cp = cp[-1]
 
-    # grouping the news headlines according to 'Date'
-    stock_headlines = stock_headlines.groupby(['date'])['tweet'].apply(lambda x: ','.join(x)).reset_index()
+    # grouping the news tweets according to 'Date'
+    stock_tweets = stock_tweets.groupby(['date'])['tweet'].apply(lambda x: ','.join(x)).reset_index()
 
     # setting column 'Date' as the index column
-    stock_headlines.set_index('date', inplace= True)
+    stock_tweets.set_index('date', inplace= True)
 
     # sorting the data according to the index i.e 'Date'
-    stock_headlines = stock_headlines.sort_index(ascending=True, axis=0)
+    stock_tweets = stock_tweets.sort_index(ascending=True, axis=0)
 
-    # concatenating the datasets stock_price and stock_headlines
-    stock_data = pd.concat([stock_price, stock_headlines], axis=1)
+    # concatenating the datasets stock_price and stock_tweets
+    stock_data = pd.concat([stock_price, stock_tweets], axis=1)
     stock_data.to_csv('stp.csv')
          
     # dropping the null values if any
@@ -70,11 +73,6 @@ def Predict(name,symbol):
     stock_data['negative'] = ''
     stock_data['neutral'] = ''
     stock_data['positive'] = ''
-
-
-    # importing requires libraries to analyze the sentiments
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer
-    import unicodedata
 
     # instantiating the Sentiment Analyzer
     sid = SentimentIntensityAnalyzer()
@@ -112,7 +110,7 @@ def Predict(name,symbol):
     percentage_of_data = 1.0
     data_to_use = int(percentage_of_data*(len(stock_data)-1))
 
-    # using 80% of data for training
+    # using 60 days of data for training
     train_end = int(data_to_use*1.0)
     total_data = len(stock_data)
     start = total_data - data_to_use
@@ -120,20 +118,18 @@ def Predict(name,symbol):
     steps_to_predict = 1
 
     # capturing data to be used for each column
-    close_price = stock_data.iloc[start:total_data,0] #close
-    compound = stock_data.iloc[start:total_data,1] #compound
-    negative = stock_data.iloc[start:total_data,2] #neg
-    neutral = stock_data.iloc[start:total_data,3] #neu
-    positive = stock_data.iloc[start:total_data,4] #pos
-    open_price = stock_data.iloc[start:total_data,5] #open
-    high = stock_data.iloc[start:total_data,6] #high
-    low = stock_data.iloc[start:total_data,7] #low
-    volume = stock_data.iloc[start:total_data,8] #volume
+    close_price = stock_data.iloc[start:total_data,0]
+    compound = stock_data.iloc[start:total_data,1]
+    negative = stock_data.iloc[start:total_data,2]
+    neutral = stock_data.iloc[start:total_data,3]
+    positive = stock_data.iloc[start:total_data,4]
+    open_price = stock_data.iloc[start:total_data,5]
+    high = stock_data.iloc[start:total_data,6]
+    low = stock_data.iloc[start:total_data,7]
+    volume = stock_data.iloc[start:total_data,8]
 
-    # printing close price
     #print("Close Price:")
     #print(close_price)
-
 
     # shifting next day close
     close_price_shifted = close_price.shift(-1) 
@@ -178,7 +174,6 @@ def Predict(name,symbol):
     prediction = scaler_y.inverse_transform(np.array(prediction).reshape((len(prediction), 1)))
     #print(prediction)
 
-
     print("Previous Close Price :",previous_cp)
     print('Prediction for today:')
     pred_data=prediction[-1]
@@ -191,6 +186,6 @@ def Predict(name,symbol):
         print("Today the price could fall.")
     predicted_change = Percent_change[0]
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
-    return predicted_change
+    #return predicted_change
 
-#Predict("Cipla","CIPLA.NS")
+Predict("Cipla","CIPLA.NS")

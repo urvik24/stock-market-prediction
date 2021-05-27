@@ -23,23 +23,26 @@ from nltk.sentiment.util import *
 from sklearn import preprocessing, metrics
 from sklearn.preprocessing import MinMaxScaler
 
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import unicodedata
+
 def Predict(name,symbol):    
     # reading the datasets
     stock_price = pd.read_csv(f"{symbol}.csv")
-    stock_headlines = pd.read_csv(f"{name}.csv")
+    stock_tweets = pd.read_csv(f"{name}.csv")
     date = stock_price['Date'].values.tolist()
 
     # check the null values in datasets
-    stock_price.isna().any(), stock_headlines.isna().any()
+    stock_price.isna().any(), stock_tweets.isna().any()
     # removing duplicates
     stock_price = stock_price.drop_duplicates()
-    stock_headlines = stock_headlines.drop_duplicates()
+    stock_tweets = stock_tweets.drop_duplicates()
     # coverting the datatype of column 'Date' from object to 'datetime'
     stock_price['Date'] = pd.to_datetime(stock_price['Date']).dt.normalize()
-    stock_headlines['date'] = pd.to_datetime(stock_headlines['date']).dt.normalize()
+    stock_tweets['date'] = pd.to_datetime(stock_tweets['date']).dt.normalize()
     # Filtering
     stock_price = stock_price.filter(['Date', 'Close', 'Open', 'High', 'Low', 'Volume'])
-    stock_headlines = stock_headlines.filter(['date', 'tweet'])
+    stock_tweets = stock_tweets.filter(['date', 'tweet'])
     # 'Date' as the index column
     stock_price.set_index('Date', inplace= True)
     # sorting the data according to the index i.e 'Date'
@@ -48,17 +51,17 @@ def Predict(name,symbol):
     cp = stock_price['Close'].tolist()
     previous_cp = cp[-1]
 
-    # grouping the news headlines according to 'Date'
-    stock_headlines = stock_headlines.groupby(['date'])['tweet'].apply(lambda x: ','.join(x)).reset_index()
+    # grouping the news tweets according to 'Date'
+    stock_tweets = stock_tweets.groupby(['date'])['tweet'].apply(lambda x: ','.join(x)).reset_index()
 
     # setting column 'Date' as the index column
-    stock_headlines.set_index('date', inplace= True)
+    stock_tweets.set_index('date', inplace= True)
 
     # sorting the data according to the index i.e 'Date'
-    stock_headlines = stock_headlines.sort_index(ascending=True, axis=0)
+    stock_tweets = stock_tweets.sort_index(ascending=True, axis=0)
 
-    # concatenating the datasets stock_price and stock_headlines
-    stock_data = pd.concat([stock_price, stock_headlines], axis=1)
+    # concatenating the datasets stock_price and stock_tweets
+    stock_data = pd.concat([stock_price, stock_tweets], axis=1)
     stock_data.to_csv('stp.csv')
          
     # dropping the null values if any
@@ -70,11 +73,6 @@ def Predict(name,symbol):
     stock_data['negative'] = ''
     stock_data['neutral'] = ''
     stock_data['positive'] = ''
-
-
-    # importing requires libraries to analyze the sentiments
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer
-    import unicodedata
 
     # instantiating the Sentiment Analyzer
     sid = SentimentIntensityAnalyzer()
@@ -130,10 +128,8 @@ def Predict(name,symbol):
     low = stock_data.iloc[start:total_data,7] #low
     volume = stock_data.iloc[start:total_data,8] #volume
 
-    # printing close price
     #print("Close Price:")
     #print(close_price)
-
 
     # shifting next day close
     close_price_shifted = close_price.shift(-1) 
