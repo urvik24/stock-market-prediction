@@ -186,6 +186,6 @@ def Predict(name,symbol):
         print("Today the price could fall.")
     predicted_change = Percent_change[0]
     print("Predicted possible percent change could be "+str(predicted_change)+"%")
-    #return predicted_change
+    return predicted_change
 
-Predict("Cipla","CIPLA.NS")
+#Predict("Cipla","CIPLA.NS")

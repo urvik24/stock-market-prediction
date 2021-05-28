@@ -17,8 +17,6 @@ def Twitter(name,company,i):
 
     time2 = time1 - timedelta (days =60)
 
-
-    
     #start_time = datetime.datetime(2021,1,1,00,00,00)
     date_time = time2.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -26,7 +24,6 @@ def Twitter(name,company,i):
     #c.Until = date_time
 
     print("Fetching the tweets for",company)
-
     twint.run.Search(c)
     tweets = twint.storage.panda.Tweets_df
     
@@ -35,5 +32,3 @@ def Twitter(name,company,i):
     tweets.to_csv(f"{name}.csv", index = False, header=True)
 
 #Twitter("Cipla","Cipla",9)
-
-#Twitter("name","Cipla",9)
