@@ -7,8 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from keras.models import Sequential
-from keras.layers import Dense, LSTM, Dropout, Dense, Activation
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM, Dropout, Dense, Activation
 
 import nltk
 from nltk.classify import NaiveBayesClassifier
@@ -187,7 +187,9 @@ def Train(name,symbol):
     # fitting the model using the training dataset
     model.fit(x, y, validation_split=0.2, epochs=500, batch_size=64, verbose=1)
 
+
     model.save(f'{name}')
+    model.save(f'D:\\Urvikk\\Projects\\MarketPrediction_FinalYear\\Models\\{name}')
     print("Model saved")
 
 #Train("Infosys","INFY.NS")
