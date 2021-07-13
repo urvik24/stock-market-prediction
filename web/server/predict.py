@@ -11,8 +11,8 @@ import matplotlib.dates as mdates
 import datetime
 import seaborn as sns
 
-from keras.models import Sequential
-from keras.layers import Dense, LSTM, Dropout, Dense, Activation
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM, Dropout, Dense, Activation
 
 import nltk
 from nltk.classify import NaiveBayesClassifier
@@ -167,7 +167,7 @@ def Predict(name,symbol):
     # reshaping the feature dataset for feeding into the model
     x = x.reshape (x.shape + (1,))
 
-    loaded_model = keras.models.load_model(f'C:\\Users\\Urvik\\Desktop\\Final\\Models\\{name}')
+    loaded_model = keras.models.load_model(f'D:\\Urvikk\\Projects\\MarketPrediction_FinalYear\\Models\\{name}')
     print('Model loaded')
 
     prediction = loaded_model.predict(x)
