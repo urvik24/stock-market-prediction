@@ -1,0 +1,6 @@
+Tensorflow-Keras issue:
+	Tensorflow 2.2++ 
+predict.py--> import keras.blahblah to tensorflow.keras.blahblah
+
+Twint:
+	pip3 install --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint

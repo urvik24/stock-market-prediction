@@ -13,4 +13,4 @@ def Stocks(company):
     data.to_csv(f"{company}.csv")
     print("Fetched Stock Details for "+company1+" for the past 365 days")
 
-#Stocks("RELIANCE.NS")
+#Stocks("CIPLA.NS")
